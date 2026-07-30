@@ -1,9 +1,11 @@
 /* Устранение системного оформления кнопок в списках и корректные отступы графика. */
 .transaction{width:100%;padding:10px 0;border:0;background:transparent;color:var(--text);text-align:left}
-.year-bars{height:228px;padding:52px 4px 28px}
-.year-bar{min-height:0}
-.year-bar .year-value{position:absolute;left:-2px;bottom:calc(100% + 6px);width:calc(100% + 4px);color:var(--text);font-size:11px;line-height:12px;font-weight:650;text-align:center;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
-.year-bar[style="height:0px"] .year-value{color:var(--secondary);font-weight:500}
+.year-bars{height:184px;padding:36px 32px 28px}
+.year-bar{min-height:0;border:0;cursor:pointer}
+button.year-bar{background:var(--primary)}
+button.year-bar.selected{background:var(--primary-strong);outline:2px solid var(--primary-strong);outline-offset:2px}
+.year-bar.zero{background:transparent;pointer-events:none}
+.year-bar .year-tooltip{position:absolute;z-index:1;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);min-width:max-content;border-radius:8px;background:var(--text);color:#fff;padding:4px 7px;font-size:12px;line-height:16px;font-weight:700;font-variant-numeric:tabular-nums;box-shadow:0 3px 10px rgba(37,39,43,.16)}
 .year-bar .year-month{position:absolute;bottom:-21px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--secondary)}
 .category-icon svg,.round-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
