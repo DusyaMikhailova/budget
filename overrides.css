@@ -23,3 +23,5 @@ button.year-bar.selected{background:var(--primary-strong);outline:2px solid var(
 .icon-choice.selected{border-color:transparent;background:var(--primary-soft)}
 .icon-choice svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .icon-choice.icon-none span{display:block;width:20px;height:20px;border:1.5px dashed var(--tertiary);border-radius:6px}
+.select-chevron{display:grid;place-items:center;width:24px;height:24px;color:var(--secondary)}
+.select-chevron svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
