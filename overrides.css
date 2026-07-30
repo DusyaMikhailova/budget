@@ -9,6 +9,7 @@ button.year-bar.selected{background:var(--primary-strong);outline:2px solid var(
 .year-bar .year-month{position:absolute;bottom:-21px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--secondary)}
 .period-section-title{margin:18px 0 7px;color:var(--secondary);font-size:13px;font-weight:650}
 .category-icon svg,.round-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.category-icon.empty{height:40px!important;min-height:40px;max-height:40px;align-self:center;background:var(--muted);border:1px solid var(--border)}
 
 /* Вторая итерация: крупная нижняя навигация и ровная сетка иконок категорий. */
 .app{padding-bottom:calc(108px + env(safe-area-inset-bottom))}
@@ -21,3 +22,4 @@ button.year-bar.selected{background:var(--primary-strong);outline:2px solid var(
 .icon-choice{display:grid;place-items:center;width:100%;min-width:44px;min-height:44px;aspect-ratio:1;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--primary-strong);padding:10px}
 .icon-choice.selected{border-color:transparent;background:var(--primary-soft)}
 .icon-choice svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.icon-choice.icon-none span{display:block;width:20px;height:20px;border:1.5px dashed var(--tertiary);border-radius:6px}
