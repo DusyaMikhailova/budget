@@ -2,3 +2,14 @@
 .transaction{width:100%;padding:10px 0;border:0;background:transparent;color:var(--text);text-align:left}
 .year-bars{height:184px;padding:12px 4px 28px}
 .category-icon svg,.round-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+/* Вторая итерация: крупная нижняя навигация и ровная сетка иконок категорий. */
+.bottom-nav{height:84px;padding:8px 10px max(8px,env(safe-area-inset-bottom))}
+.fixed-action{bottom:calc(84px + env(safe-area-inset-bottom))}
+.nav-item{min-height:44px;gap:4px;font-size:12px;line-height:16px}
+.nav-icon,.nav-icon svg{display:block;width:24px;height:24px}
+.nav-icon svg{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.icon-picker{display:grid;grid-template-columns:repeat(4,minmax(44px,1fr));gap:12px;margin-top:8px}
+.icon-choice{display:grid;place-items:center;width:100%;min-width:44px;min-height:44px;aspect-ratio:1;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--primary-strong);padding:10px}
+.icon-choice.selected{border-color:transparent;background:var(--primary-soft)}
+.icon-choice svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
