@@ -8,7 +8,16 @@ const dateText = (iso) => new Intl.DateTimeFormat('ru-RU').format(new Date(`${is
 const monthText = (key) => new Intl.DateTimeFormat('ru-RU', { month: 'long', year: 'numeric' }).format(new Date(`${key}-01T12:00:00`)).replace(/^./, (x) => x.toUpperCase());
 const monthKey = (date) => date.slice(0, 7);
 const defaultCategories = [['Супермаркеты','bag'],['Транспорт','bus'],['Жильё','home'],['Здоровье','health'],['Развлечения','play'],['Одежда','shirt'],['Путешествия','plane'],['Другое','dots']];
-const icon = (name) => ({bag:'⌑',bus:'↔',home:'⌂',health:'＋',play:'▷',shirt:'◇',plane:'⌁',dots:'•••'}[name] || '●');
+const icon = (name) => ({
+  bag:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16l-1 12H5L4 8Z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>',
+  bus:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="15" rx="3"/><path d="M5 9h14M8 21l1-3m6 3-1-3M8 13h2m4 0h2"/></svg>',
+  home:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"/></svg>',
+  health:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.5c0 5.3-8.8 10.2-8.8 10.2S3.2 13.8 3.2 8.5A4.8 4.8 0 0 1 12 5.8a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>',
+  play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg>',
+  shirt:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4 4 3 4-3 5 4-3 4-2-1v9H8v-9l-2 1-3-4 5-4Z"/></svg>',
+  plane:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.5 18-3.8-7.7L2 9.5 21 3Z"/><path d="m9.7 13.3 4-4"/></svg>',
+  dots:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>'
+}[name] || '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>');
 const DB = 'expenses-pwa'; let db;
 function openDb(){return new Promise((resolve,reject)=>{const request=indexedDB.open(DB,1);request.onupgradeneeded=()=>{const d=request.result;if(!d.objectStoreNames.contains('categories'))d.createObjectStore('categories',{keyPath:'id'});if(!d.objectStoreNames.contains('expenses'))d.createObjectStore('expenses',{keyPath:'id'});if(!d.objectStoreNames.contains('settings'))d.createObjectStore('settings',{keyPath:'key'});};request.onsuccess=()=>{db=request.result;resolve()};request.onerror=()=>reject(request.error)});}
 function store(name, mode='readonly'){return db.transaction(name,mode).objectStore(name)}
