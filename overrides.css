@@ -1,10 +1,15 @@
 /* Устранение системного оформления кнопок в списках и корректные отступы графика. */
 .transaction{width:100%;padding:10px 0;border:0;background:transparent;color:var(--text);text-align:left}
-.year-bars{height:184px;padding:12px 4px 28px}
+.year-bars{height:228px;padding:52px 4px 28px}
+.year-bar{min-height:0}
+.year-bar .year-value{position:absolute;left:-2px;bottom:calc(100% + 6px);width:calc(100% + 4px);color:var(--text);font-size:11px;line-height:12px;font-weight:650;text-align:center;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.year-bar[style="height:0px"] .year-value{color:var(--secondary);font-weight:500}
+.year-bar .year-month{position:absolute;bottom:-21px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--secondary)}
 .category-icon svg,.round-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
 /* Вторая итерация: крупная нижняя навигация и ровная сетка иконок категорий. */
-.bottom-nav{height:84px;padding:8px 10px max(8px,env(safe-area-inset-bottom))}
+.app{padding-bottom:calc(108px + env(safe-area-inset-bottom))}
+.bottom-nav{position:fixed;z-index:3;left:50%;bottom:0;transform:translate3d(-50%,0,0);width:min(100%,480px);height:calc(84px + env(safe-area-inset-bottom));padding:8px 10px max(8px,env(safe-area-inset-bottom));isolation:isolate}
 .fixed-action{bottom:calc(84px + env(safe-area-inset-bottom))}
 .nav-item{min-height:44px;gap:4px;font-size:12px;line-height:16px}
 .nav-icon,.nav-icon svg{display:block;width:24px;height:24px}
