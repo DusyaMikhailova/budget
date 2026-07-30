@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Прототип — главный экран расходов</title>
+  <style>
+    :root { --page:#f7f7f5; --surface:#fff; --ink:#25272b; --muted:#73777c; --line:#e7e8e6; --teal:#5f9997; --teal-dark:#477e7c; --teal-soft:#e1f0ee; --lilac:#8772ae; --lilac-soft:#eee9f5; --peach:#c98b70; --peach-soft:#f8e9e2; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#e9eceb; color:var(--ink); font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .phone { width:min(100%,430px); min-height:100vh; margin:auto; background:var(--page); padding:24px 16px 112px; }
+    .top { display:flex; justify-content:space-between; align-items:center; margin:4px 0 24px; }
+    h1 { margin:0; font-size:28px; line-height:34px; letter-spacing:-.6px; }
+    .month { display:flex; gap:6px; align-items:center; border:0; background:var(--surface); color:var(--ink); min-height:40px; padding:0 12px; border-radius:14px; font:600 13px inherit; box-shadow:0 3px 14px rgba(30,35,40,.05); }
+    .chevron { width:7px; height:7px; border-right:1.8px solid var(--muted); border-bottom:1.8px solid var(--muted); transform:rotate(45deg) translateY(-2px); }
+    .card { background:var(--surface); border-radius:20px; padding:16px; box-shadow:0 6px 20px rgba(30,35,40,.045); }
+    .summary { background:var(--teal-soft); padding:20px; display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
+    .eyebrow,.small { color:var(--muted); font-size:13px; line-height:16px; }
+    .amount { margin-top:5px; font-weight:750; font-size:32px; line-height:38px; letter-spacing:-1px; font-variant-numeric:tabular-nums; }
+    .round-icon { width:40px; height:40px; border-radius:14px; display:grid; place-items:center; background:rgba(255,255,255,.62); color:var(--teal-dark); }
+    .round-icon svg, .nav svg, .tx-icon svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+    .section-title { margin:24px 0 12px; display:flex; justify-content:space-between; align-items:center; }
+    h2 { margin:0; font-size:20px; line-height:26px; letter-spacing:-.25px; }
+    .link { border:0; background:none; color:var(--teal-dark); font:600 13px inherit; padding:6px 0; }
+    .categories { display:grid; grid-template-columns:118px 1fr; gap:14px; align-items:center; }
+    .donut { width:106px; height:106px; border-radius:50%; background:conic-gradient(var(--teal) 0 45%,var(--lilac) 45% 65%,var(--peach) 65% 80%,#dfe4e3 80% 100%); display:grid; place-items:center; }
+    .donut::after { content:""; width:62px; height:62px; background:#fff; border-radius:50%; }
+    .cat-list { display:grid; gap:12px; }
+    .cat { display:grid; grid-template-columns:9px 1fr auto; align-items:center; gap:8px; font-size:14px; line-height:18px; }
+    .dot { width:9px; height:9px; border-radius:50%; } .cat b { font-size:14px; font-variant-numeric:tabular-nums; }
+    .critical { background:var(--peach-soft); display:flex; justify-content:space-between; align-items:center; padding:16px; }
+    .critical strong { display:block; margin-top:4px; font-size:17px; line-height:22px; font-variant-numeric:tabular-nums; }
+    .critical .round-icon { color:var(--peach); }
+    .transactions { display:grid; gap:8px; }
+    .transaction { min-height:66px; display:grid; grid-template-columns:42px 1fr auto; align-items:center; gap:10px; padding:12px; border-radius:16px; background:var(--surface); box-shadow:0 4px 14px rgba(30,35,40,.035); }
+    .tx-icon { width:40px; height:40px; display:grid; place-items:center; border-radius:13px; color:var(--teal-dark); background:var(--teal-soft); }
+    .tx-icon.lilac { background:var(--lilac-soft); color:var(--lilac); }
+    .tx-name { font-size:15px; font-weight:650; line-height:20px; } .tx-date { margin-top:2px; font-size:12px; color:var(--muted); }
+    .tx-amount { font-size:16px; font-weight:700; font-variant-numeric:tabular-nums; }
+    .add { position:fixed; left:50%; bottom:79px; transform:translateX(-50%); width:min(calc(100% - 32px),398px); height:52px; border:0; border-radius:16px; background:var(--teal); color:#fff; font:700 16px inherit; box-shadow:0 8px 20px rgba(71,126,124,.23); }
+    .add:active { background:var(--teal-dark); transform:translateX(-50%) scale(.98); }
+    .nav { position:fixed; left:50%; bottom:0; transform:translateX(-50%); width:min(100%,430px); height:76px; display:grid; grid-template-columns:repeat(4,1fr); padding:8px 10px max(8px,env(safe-area-inset-bottom)); background:rgba(255,255,255,.97); border-top:1px solid var(--line); }
+    .nav-item { display:grid; place-items:center; align-content:center; gap:3px; color:#a8acb0; font-size:11px; line-height:14px; text-decoration:none; } .nav-item.active { color:var(--teal-dark); font-weight:700; }
+    @media (min-width:431px) { .phone { min-height:844px; margin:20px auto; border-radius:30px; box-shadow:0 18px 55px rgba(30,35,40,.16); overflow:hidden; } .add { bottom:99px; } .nav { bottom:20px; border-radius:0 0 30px 30px; } }
+  </style>
+</head>
+<body>
+  <main class="phone" aria-label="Прототип главного экрана">
+    <header class="top"><h1>Расходы</h1><button class="month">Июль 2026 <i class="chevron"></i></button></header>
+    <section class="card summary"><div><div class="eyebrow">За месяц</div><div class="amount">18 450 ₽</div></div><div class="round-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg></div></section>
+    <section class="card"><h2>По категориям</h2><div class="categories"><div class="donut" aria-label="Распределение расходов по категориям"></div><div class="cat-list"><div class="cat"><i class="dot" style="background:#5f9997"></i><span>Продукты</span><b>7 240 ₽</b></div><div class="cat"><i class="dot" style="background:#8772ae"></i><span>Транспорт</span><b>3 180 ₽</b></div><div class="cat"><i class="dot" style="background:#c98b70"></i><span>Кафе</span><b>2 460 ₽</b></div></div></div></section>
+    <section class="card critical" style="margin-top:16px"><div><div class="small">Критичные расходы</div><strong>5 600 ₽ · 30%</strong></div><div class="round-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 3.7 19h16.6L12 3Z"/><path d="M12 9v4m0 3h.01"/></svg></div></section>
+    <div class="section-title"><h2>Последние операции</h2><button class="link">Смотреть все</button></div>
+    <section class="transactions" aria-label="Последние операции"><article class="transaction"><div class="tx-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16l-1 12H5L4 7Z"/><path d="M8 9V5a4 4 0 0 1 8 0v4"/></svg></div><div><div class="tx-name">Продукты</div><div class="tx-date">29.07.2026</div></div><div class="tx-amount">1 240 ₽</div></article><article class="transaction"><div class="tx-icon lilac"><svg viewBox="0 0 24 24"><path d="M5 16h14M7 16l1-6h8l1 6M9 10l1-3h4l1 3M7 19h10"/><circle cx="8" cy="19" r="1"/><circle cx="16" cy="19" r="1"/></svg></div><div><div class="tx-name">Транспорт</div><div class="tx-date">28.07.2026</div></div><div class="tx-amount">680 ₽</div></article></section>
+  </main>
+  <button class="add">+ Добавить расход</button>
+  <nav class="nav" aria-label="Основная навигация"><a class="nav-item active" href="#"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"/></svg>Главная</a><a class="nav-item" href="#"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8m-8 4h8m-8 4h5"/></svg>История</a><a class="nav-item" href="#"><svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg>Аналитика</a><a class="nav-item" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.2 2.2-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.55V20h-3.1v-.09A1.7 1.7 0 0 0 10.5 18.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.2-2.2.06-.06A1.7 1.7 0 0 0 6.76 14.7 1.7 1.7 0 0 0 5.2 13.67H5v-3.1h.2a1.7 1.7 0 0 0 1.56-1.03 1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.2-2.2.06.06a1.7 1.7 0 0 0 1.88.34 1.7 1.7 0 0 0 1.03-1.55V4h3.1v.25a1.7 1.7 0 0 0 1.03 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.2 2.2-.06.06a1.7 1.7 0 0 0-.34 1.88 1.7 1.7 0 0 0 1.55 1.03H20v3.1h-.25A1.7 1.7 0 0 0 19.4 15Z"/></svg>Категории</a></nav>
+</body>
+</html>
